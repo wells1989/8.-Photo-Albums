@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Mayra"
+    },
+    {
+      "id": 2,
+      "name": "Paulo"
+    },
+    {
+      "name": "Dawn Marquardt",
+      "id": 3
+    },
+    {
+      "name": "Jan Harvey",
+      "id": 6
+    },
+    {
+      "name": "Kenny Boyle",
+      "id": 7
+    },
+    {
+      "name": "Christopher Smith Jr.",
+      "id": 8
+    },
+    {
+      "name": "Dallas Anderson",
+      "id": 9
+    },
+    {
+      "name": "Priscilla Ritchie",
+      "id": 11
+    },
+    {
+      "name": "Mr. Ian Davis",
+      "id": 12
+    },
+    {
+      "name": "Alexis Sporer",
+      "id": 13
+    },
+    {
+      "name": "Theodore Hermiston",
+      "id": 14
+    }
+  ],
+  "albums": [],
+  "photos": []
+}
