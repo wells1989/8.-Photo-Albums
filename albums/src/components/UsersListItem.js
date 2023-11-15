@@ -21,6 +21,8 @@ function UsersListItem({ user }) {
                 {error && <div>error deleting user </div>}
             {user.name}
             </div> 
+            
+    
         </div>
     </div>
     )

@@ -30,7 +30,7 @@ const usersSlice = createSlice({
         });
         builder.addCase(addUser.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.data.push(action.payload);
+            state.data.push(action.payload)
         });
         builder.addCase(addUser.rejected, (state, action) => {
             state.isLoading = false;
