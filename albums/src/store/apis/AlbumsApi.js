@@ -22,12 +22,11 @@ const albumsApi = createApi({
                         method: 'POST',
                         body: {
                             userId: user.id,
-                            title: "test 2"
+                            title: faker.commerce.productName()
                         }
                     }
                 }
             }),
-        
 
         // fetching Albums query ...
             fetchAlbums: builder.query({
