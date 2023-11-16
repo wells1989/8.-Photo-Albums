@@ -26,6 +26,10 @@ function UsersList() {
     // above if promise which is returned from dispatch, then goes into arrow function whether the request succeeds or fails (unlike normal promise .then function.) The argument to the .then() is the fulfilled or rejected action object
 
     const handleUserAdd = () => {
+        if (!newName) {
+            alert("please input a name")
+            return
+        }
         doCreateUser(newName)
         setNewName('')
         document.getElementById("name-input").value = "";
