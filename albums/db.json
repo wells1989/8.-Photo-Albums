@@ -11,32 +11,44 @@
     {
       "name": "Jan Harvey",
       "id": 6
+    }
+  ],
+  "albums": [
+    {
+      "id": 10,
+      "title": "Hiking trip",
+      "userId": 1
     },
     {
-      "name": "Christopher Smith Jr.",
-      "id": 8
-    },
-    {
-      "name": "Dallas Anderson",
-      "id": 9
-    },
-    {
-      "name": "Priscilla Ritchie",
+      "userId": 1,
+      "title": "Fantastic Soft Cheese",
       "id": 11
     },
     {
-      "name": "Mr. Ian Davis",
+      "userId": 1,
+      "title": "Elegant Metal Towels",
       "id": 12
     },
     {
-      "name": "Alexis Sporer",
+      "userId": 1,
+      "title": "Generic Bronze Shoes",
       "id": 13
     },
     {
-      "name": "Theodore Hermiston",
+      "userId": 1,
+      "title": "new idea",
       "id": 14
+    },
+    {
+      "userId": 1,
+      "title": "",
+      "id": 15
+    },
+    {
+      "userId": 1,
+      "title": "",
+      "id": 16
     }
   ],
-  "albums": [],
   "photos": []
 }
