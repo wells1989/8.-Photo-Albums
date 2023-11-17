@@ -44,13 +44,13 @@ const albumsApi = createApi({
                 invalidatesTags: (result, error, user) => {
                    return [{ type: 'UsersAlbums', id: user.id}] 
                 },
-                query: (user) => {
+                query: ({user, state}) => {
                     return {
                         url: '/albums',
                         method: 'POST',
                         body: {
                             userId: user.id,
-                            title: faker.commerce.productName()
+                            title: state.newAlbum
                         }
                     }
                 }

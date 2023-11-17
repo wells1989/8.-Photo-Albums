@@ -44,12 +44,12 @@ const photosApi = createApi({
                    return [{ type: 'AlbumPhoto', id: album.id}] 
                 },
 
-                query: (album) => {
+                query: ({album, state}) => {
                     return {
                         url: '/photos',
                         method: 'POST',
                         body: {
-                            url: faker.image.abstract(150,150, true), // check docs!
+                            url: state.url, // check docs!
                             albumId: album.id,
                         },  
                     }

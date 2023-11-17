@@ -10,7 +10,7 @@ function PhotosListIem({ photo }) {
     }
 
     return <div onClick={handleRemovePhoto} className="relative m-2 cursor-pointer">
-        <img className="h-20 w-20 rounded-md" src={photo.url} alt="not loaded" />
+        <img className="h-40 w-40 rounded-md" src={photo.url} alt="not loaded" />
         <div className="absolute inset-0 flex items-center justify-center hover: bg-gray-200 opacity-0 hover:opacity-80">
             <GoTrash className="text-3xl" />
         </div>
