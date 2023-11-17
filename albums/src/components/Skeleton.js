@@ -8,7 +8,7 @@ function Skeleton({ times, className }) {
         'bg-gray-200', 
         'rounded', 
         'mb-2.5',
-        className // goal to set the height and width of the boxes
+        className
     );
     const innerClassNames = classNames(
         'animate-shimmer',
@@ -29,7 +29,6 @@ function Skeleton({ times, className }) {
 
     return boxes;
 }
-// creates a new array with length times, then iterating over it and for each element creating new div element, then returning the array
- 
+
 export default Skeleton;
 

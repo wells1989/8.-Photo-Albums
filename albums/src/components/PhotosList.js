@@ -12,7 +12,7 @@ function PhotosList({ album }) {
 
     const [addPhoto, results] = useAddPhotoMutation();
 
-    let state = {
+    let localState = {
         url: newPhotoUrl
     }
 
@@ -27,7 +27,8 @@ function PhotosList({ album }) {
              return 
             }
         // checks if valid url address and not empty
-        addPhoto({album, state});
+
+        addPhoto({album, localState});
         setNewPhotoUrl('');
         document.getElementById("photo-input").value = "";
         // clearing the variable, and input id field ...
@@ -36,8 +37,7 @@ function PhotosList({ album }) {
     const handleAddRandomPhoto = () => {
         setNewPhotoUrl(faker.image.urlLoremFlickr())
 
-        addPhoto({album, state});
-        // clearing the variable, and input id field ...
+        addPhoto({album, localState});
     }
 
     const handleChange = (event) => {

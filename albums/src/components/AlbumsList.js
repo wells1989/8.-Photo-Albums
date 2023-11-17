@@ -11,7 +11,7 @@ function AlbumsList({ user }) {
 
     const[newAlbum, setNewAlbum] = useState('')
 
-    let state = {
+    let localState = {
         newAlbum: newAlbum
     }
 
@@ -25,7 +25,7 @@ function AlbumsList({ user }) {
             return;
         }
 
-        addAlbum({user, state})
+        addAlbum({user, localState})
         setNewAlbum('');
         document.getElementById("album-input").value = "";
     }
@@ -55,7 +55,6 @@ function AlbumsList({ user }) {
             <Button className="ml-5 bg-gray-100 border rounded-md cursor-pointer border-solid border-2 border-indigo-600 hover:bg-gray-300" loading={results.isLoading} onClick={handleAddAlbum}>
                 Add Album
             </Button>
-            {newAlbum}
         </div>
         <div>
             {content}

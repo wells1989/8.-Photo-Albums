@@ -1,12 +1,4 @@
 import {createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { faker } from '@faker-js/faker';
-
-// DEV ONLY !!!
-const pause = (duration) => {
-    return new Promise((resolve) => {
-        setTimeout(resolve, duration);
-    })
-}
 
 const albumsApi = createApi({
     reducerPath: 'albums',
@@ -14,13 +6,7 @@ const albumsApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3005',
         
-        // DEV ONLY !!!
-        fetchFn: async (...args) => {
-            await pause(1000);
-            return fetch(...args);
-        }
     }),
-    // above, overriding standard fetch function, inputting the pause then returning normal fetch with all the arguments
    
     endpoints(builder) {
         return {
@@ -44,13 +30,13 @@ const albumsApi = createApi({
                 invalidatesTags: (result, error, user) => {
                    return [{ type: 'UsersAlbums', id: user.id}] 
                 },
-                query: ({user, state}) => {
+                query: ({user, localState}) => {
                     return {
                         url: '/albums',
                         method: 'POST',
                         body: {
                             userId: user.id,
-                            title: state.newAlbum
+                            title: localState.newAlbum
                         }
                     }
                 }

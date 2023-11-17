@@ -8,11 +8,9 @@ export const store = configureStore({
     reducer: {
         users: usersReducer,
         [albumsApi.reducerPath]: albumsApi.reducer,
-        // connecting albumsApi to the albums state, linking it to WHATEVER string is in the reducerPath in albumsApi
-        
-        // i.e. line 'reducerPath: 'albums'' in AlbumsApi.js
+        // connecting albumsApi to the albums state, linking it to 'reducerPath: 'albums'' in AlbumsApi.js
         [photosApi.reducerPath]: photosApi.reducer
-        // i.e. same as 'photos', links it to the photos state
+
     },
         middleware: (getDefaultMiddleware) => {
             return getDefaultMiddleware()
@@ -22,8 +20,6 @@ export const store = configureStore({
         // whenever we create an api, a set of middleware is also connected for us, so we need to connect it to the Api as shown above
 });
 
-// temporary (can thus in devtools use console log store.getState() to see state and queries / mutations etc)
-window.store = store;
 
 setupListeners(store.dispatch);
 

@@ -12,7 +12,7 @@ function UsersList() {
     const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers)
 
     const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
-    // above, assigning the 3 things returned from the thunk as individual variables, e.g. the function, the isLoadingState for that function, and the error linked to that function
+    //assigning the items returned from the thunk as individual variables, e.g. the function / isLoadingState / error linked to the function passed in useThunk
 
     const[newName, setNewName] = useState('');
 
@@ -23,7 +23,7 @@ function UsersList() {
     useEffect(() => {
         doFetchUsers()
     }, [doFetchUsers]);
-    // above if promise which is returned from dispatch, then goes into arrow function whether the request succeeds or fails (unlike normal promise .then function.) The argument to the .then() is the fulfilled or rejected action object
+    // if promise which is returned from dispatch, then goes into arrow function whether the request succeeds or fails (unlike normal promise .then function.) The argument to the .then() is the fulfilled or rejected action object
 
     const handleUserAdd = () => {
         if (!newName) {
@@ -62,7 +62,7 @@ function UsersList() {
                     onChange={handleChange}
                     />
                 </form>
-                <Button loading={isCreatingUser} onClick={handleUserAdd}>Add user</Button> 
+                <Button loading={isCreatingUser} onClick={handleUserAdd} className="ml-5 bg-gray-100 border rounded-md cursor-pointer border-solid border-2 border-indigo-600 hover:bg-gray-300">Add user</Button> 
 
                 {creatingUserError && 'Error creating user ...'}
             </div>
