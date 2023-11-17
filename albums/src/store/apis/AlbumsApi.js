@@ -1,21 +1,49 @@
 import {createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { faker } from '@faker-js/faker';
 
+// DEV ONLY !!!
+const pause = (duration) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration);
+    })
+}
+
 const albumsApi = createApi({
-    // 1st property needed (createApi will automatically create a slice, with state etc) and we use the reducerPath to specify where this state will be stored
-    reducerPath: 'albums', // e.g. in state, alreadt have 'state' now has 'albums' too
+    reducerPath: 'albums',
     
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3005'
+        baseUrl: 'http://localhost:3005',
+        
+        // DEV ONLY !!!
+        fetchFn: async (...args) => {
+            await pause(1000);
+            return fetch(...args);
+        }
     }),
+    // above, overriding standard fetch function, inputting the pause then returning normal fetch with all the arguments
    
     endpoints(builder) {
         return {
+
+        // deleting album mutation ...
+            removeAlbum: builder.mutation({
+                invalidatesTags: (result, error, album) => {
+                    
+                    return [{ type: 'Album', id: album.id}]
+                },
+                query: (album) => {
+                    return {
+                        url: `/albums/${album.id}`,
+                        method: 'DELETE'
+                    };
+                }
+            }),    
+
         // adding Albums mutation ...
             addAlbum: builder.mutation({
                 invalidatesTags: (result, error, user) => {
-                   return [{ type: 'Album', id: user.id}] 
-                }, // invalidates any queries tagged with album when running, so they'll be re-fetched
+                   return [{ type: 'UsersAlbums', id: user.id}] 
+                },
                 query: (user) => {
                     return {
                         url: '/albums',
@@ -31,9 +59,14 @@ const albumsApi = createApi({
         // fetching Albums query ...
             fetchAlbums: builder.query({
                 providesTags: (result, error, user) => {
-                    return [{ type: 'Album', id: user.id }] // providesTags will be called with automatic parameters of result, error, arg (user in this case)so you can get access to the user.id
+                    const tags = result.map((album) => {
+                        return { type: 'Album', id: album.id}
+                    }); 
+                    
+                    tags.push({ type: 'UsersAlbums', id: user.id})
+                    return tags;
                 },
-                // links the tag Album to this query, marking it as stale, then re-fetches data
+                
                 query: (user) => {
                     return {
                         url: '/albums',
@@ -48,5 +81,5 @@ const albumsApi = createApi({
     }
 });
 
-export const { useFetchAlbumsQuery, useAddAlbumMutation } = albumsApi;
+export const { useFetchAlbumsQuery, useAddAlbumMutation, useRemoveAlbumMutation } = albumsApi;
 export { albumsApi }
