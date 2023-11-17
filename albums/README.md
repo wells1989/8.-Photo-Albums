@@ -1,8 +1,39 @@
-# Getting Started with Create React App
+# Photo Album React-Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a basic photo / album collection App, utilising React on the front end and Redux for the state management and Api Requests.
 
-## Available Scripts
+## Installation / dependencies
+
+```bash
+cd albums
+npm install
+```
+
+```javascript
+"dependencies": {
+        "@faker-js/faker": "^8.2.0",
+        "@reduxjs/toolkit": "^1.9.7",
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "axios": "^1.6.1",
+        "classnames": "^2.3.2",
+        "json-server": "^0.17.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.11.0",
+        "react-redux": "^8.1.3",
+        "react-scripts": "5.0.1",
+        "web-vitals": "^2.1.4"
+      },
+      "devDependencies": {
+        "tailwindcss": "^3.3.5"
+      }
+```
+
+## Usage
+
+### Available
 
 In the project directory, you can run:
 
@@ -14,57 +45,109 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### `npm run start:server`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the server on http://localhost:3005
 
-### `npm run build`
+### Api requests
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users:
+-  fetchUsers: GET http://localhost:3005/users
+-  addUser: POST GET http://localhost:3005/users
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+parameters(newName)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+body: {
+        name: newName
+      }
+```
 
-### `npm run eject`
+-  removeUser: DELETE `http://localhost:3005/users/:id`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Albums:
+- fetchAlbums: GET http://localhost:3005/albums/:id
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+query: (user) => {
+       return {
+          url: '/albums',
+          params: {
+              userId: user.id
+                  },
+          method: 'GET',
+         };
+}  
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- addAlbum: POST http://localhost:3005/albums
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```javascript
+ query: ({user, localState}) => {
+         return {
+           url: '/albums',
+           method: 'POST',
+           body: {
+                 userId: user.id,
+                 title: localState.newAlbum
+                 }
+                 }
+}
+```
+- removeAlbum: DELETE http://localhost:3005/albums/:id
 
-## Learn More
+```javascript
+query: (album) => {
+      return {
+        url: `/albums/${album.id}`,
+        method: 'DELETE'
+              };
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Photos:
+- fetchPhotos GET http://localhost:3005/photos
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+query: (album) => {
+     return {
+        url: '/photos',
+        params: {
+                 albumId: album.id
+                },
+        method: 'GET'
+             };
+}
+```
 
-### Code Splitting
+- addphoto POST http://localhost:3005/photos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+query: ({album, localState}) => {
+    return {
+         url: '/photos',
+         method: 'POST',
+         body: {
+           url: localState.url,
+           albumId: album.id,
+                },  
+           }
+  }
+```
 
-### Analyzing the Bundle Size
+### Front End UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Screenshot (439)](https://github.com/wells1989/Full-stack-blog/assets/122035759/14222723-f64c-427c-9fd1-d50e64d39087)
 
-### Making a Progressive Web App
+![Screenshot (440)](https://github.com/wells1989/Full-stack-blog/assets/122035759/9447d6fb-0b4c-45d5-8d8a-dfeaf11f7800)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Screenshot (441)](https://github.com/wells1989/Full-stack-blog/assets/122035759/49196cf6-93ae-4bd2-a2b5-c607315a922d)
 
-### Advanced Configuration
+## Project Notes
+- The purpose of this project was to practice advanced state management techniques using both AsynThunks and RTK, hence the use of both of these in this project
+- Due to the above focus the styling is basic but functional (future additions to functionality could include logging in as a user, then viewing others albums if marked private etc.)
+- The course was the final part of a course on Udemy by Stephen Grider, who helped provide walkthroughs of the more difficult state managemement parts. However there were numberous extra functionalities added after finishing the course (for instance the searching functions and the option to add either random images or specific image urls)
+- Json server was used in this project as again the focus was on advanced state management in React-Redux
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
